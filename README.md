@@ -1,4 +1,4 @@
-# 🧪 K3s + Podman + macvlan + Headlamp Setup
+# 🧪 K3s + Podman + macvlan + Pihole + Headlamp Setup
 
 ```mermaid
 graph TD
