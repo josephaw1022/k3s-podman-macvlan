@@ -1,5 +1,31 @@
 # 🧪 K3s + Podman + macvlan + Headlamp Setup
 
+```mermaid
+graph TD
+
+subgraph Home_Network["Network (192.168.0.0/21)"]
+    Laptop["Laptop (192.168.4.1)"]
+    Router["Router (192.168.2.1)"]
+
+    subgraph Containers["Containers (on Laptop)"]
+        K3S_Master["K3s Master Node (192.168.4.10)"]
+        K3S_Worker["K3s Worker Node (192.168.4.11)"]
+        PiHole["Pi-hole (192.168.4.2)"]
+    end
+end
+
+Laptop -->|runs container| K3S_Master
+Laptop -->|runs container| K3S_Worker
+Laptop -->|runs container| PiHole
+Laptop --> Router
+
+K3S_Worker --> K3S_Master
+
+Router -->|uses as primary DNS| PiHole
+PiHole -->|"*.kubesoar.test"| K3S_Master
+PiHole -->|"kubesoar.test"| K3S_Master
+```
+
 This project runs a local K3s cluster in Podman containers using a macvlan network, allowing you to expose your Kubernetes API and services directly on your LAN. It's great for local development, testing, or homelab setups.
 
 ---
@@ -81,6 +107,7 @@ Once setup is complete, open **Headlamp** in your browser. You should see your K
 ### 📦 Pods view:
 
 ![Cluster Pods](images/cluster-pods.png)
+
 
 ---
 
