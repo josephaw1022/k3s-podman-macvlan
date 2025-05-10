@@ -20,7 +20,7 @@ services:
 
   k3s-server-1:
     image: "docker.io/rancher/k3s:${K3S_VERSION:-latest}"
-    command: server
+    command: server --disable=traefik,servicelb
     tmpfs:
       - /run
       - /var/run
@@ -45,7 +45,7 @@ services:
 
   k3s-server-2:
     image: "docker.io/rancher/k3s:${K3S_VERSION:-latest}"
-    command: server
+    command: server --disable=traefik,servicelb
     tmpfs:
       - /run
       - /var/run
@@ -59,6 +59,7 @@ services:
       - K3S_URL=https://192.168.4.10:6443
       - K3S_DATASTORE_ENDPOINT=postgres://postgres@192.168.4.3:5432/k3s
       - K3S_NODE_NAME=k3s-server-2
+
     networks:
       homelabnetwork:
         ipv4_address: 192.168.4.11
@@ -73,7 +74,7 @@ services:
 
   k3s-server-3:
     image: "docker.io/rancher/k3s:${K3S_VERSION:-latest}"
-    command: server
+    command: server --disable=traefik,servicelb
     tmpfs:
       - /run
       - /var/run
@@ -87,6 +88,7 @@ services:
       - K3S_URL=https://192.168.4.10:6443
       - K3S_DATASTORE_ENDPOINT=postgres://postgres@192.168.4.3:5432/k3s
       - K3S_NODE_NAME=k3s-server-3
+
     networks:
       homelabnetwork:
         ipv4_address: 192.168.4.12
