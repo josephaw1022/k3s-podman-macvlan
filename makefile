@@ -15,11 +15,11 @@ help: ## Show help for each target
 
 .PHONY: up
 up: ## Bring up the containers using podman-compose
-	sudo podman-compose -f $(COMPOSE_FILE) up -d
+	podman compose -f $(COMPOSE_FILE) up -d
 
 .PHONY: down
 down: ## Tear down the containers using podman-compose
-	sudo podman-compose -f $(COMPOSE_FILE) down -v
+	podman compose -f $(COMPOSE_FILE) down -v
 
 .PHONY: clean
 clean: ## Remove volume data for a fresh start
